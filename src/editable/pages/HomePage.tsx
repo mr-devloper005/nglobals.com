@@ -4,6 +4,7 @@ import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import { buildPageMetadata } from '@/lib/seo'
 import { fetchHomeTaskFeed, fetchHomeTimeSections, type HomeTimeSection } from '@/lib/task-data'
 import { pagesContent } from '@/editable/content/pages.content'
+import { globalContent } from '@/editable/content/global.content'
 import type { SitePost } from '@/lib/site-connector'
 import { EditableHomeCta, EditableHomeHero, EditableMagazineSplit, EditableStoryRail, EditableTimeCollections } from '@/editable/sections/HomeSections'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
@@ -29,10 +30,10 @@ function uniquePosts(posts: SitePost[]) {
 }
 
 export default async function HomePage() {
-  const primaryTask = (SITE_CONFIG.tasks.find((task) => task.enabled)?.key || 'article') as TaskKey
-  const primaryRoute = SITE_CONFIG.taskViews[primaryTask] || `/${primaryTask}`
-  const taskFeed: TaskFeedItem[] = await fetchHomeTaskFeed(12, { timeoutMs: 2500 })
-  const primaryPosts = uniquePosts(taskFeed.find(({ task }) => task.key === primaryTask)?.posts || taskFeed.flatMap(({ posts }) => posts)).slice(0, 24)
+  const primaryTask = 'listing' as TaskKey
+  const primaryRoute = '/listing'
+  const taskFeed: TaskFeedItem[] = await fetchHomeTaskFeed(36, { timeoutMs: 2500 })
+  const primaryPosts = uniquePosts(taskFeed.find(({ task }) => task.key === primaryTask)?.posts || taskFeed.flatMap(({ posts }) => posts)).slice(0, 36)
   const timeSections: HomeTimeSection[] = await fetchHomeTimeSections(primaryTask, { limit: 8, timeoutMs: 2500 })
   const baseUrl = SITE_CONFIG.baseUrl.replace(/\/$/, '')
 
@@ -43,7 +44,7 @@ export default async function HomePage() {
         data={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: SITE_CONFIG.name,
+          name: globalContent.site.name,
           url: baseUrl,
           potentialAction: {
             '@type': 'SearchAction',
