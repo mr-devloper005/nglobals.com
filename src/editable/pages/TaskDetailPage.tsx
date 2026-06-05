@@ -8,6 +8,7 @@ import { getTaskConfig, SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import type { SitePost } from '@/lib/site-connector'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
 import { getVisualPreset, visualSystem } from '@/editable/theme/visual-system'
+import { globalContent } from '@/editable/content/global.content'
 
 export const revalidate = 3
 
@@ -106,7 +107,9 @@ const mapSrcFor = (post: SitePost) => {
 
 export function TaskDetailView({ task, post, related, comments = [] }: { task: TaskKey; post: SitePost; related: SitePost[]; comments?: Array<{ id: string; name: string; comment: string; createdAt: string }> }) {
   const preset = getVisualPreset(visualSystem.recommendedPreset as any)
-  const detailVars = { '--detail-bg': preset.colors.background, '--detail-text': preset.colors.foreground, '--detail-surface': preset.colors.surface, '--detail-accent': preset.colors.accent } as CSSProperties
+  const detailVars = task === 'listing'
+    ? { '--detail-bg': '#ffffff', '--detail-text': '#11131c', '--detail-surface': '#ffffff', '--detail-accent': '#c6a063', '--editable-container': '1180px' } as CSSProperties
+    : { '--detail-bg': preset.colors.background, '--detail-text': preset.colors.foreground, '--detail-surface': preset.colors.surface, '--detail-accent': preset.colors.accent, '--editable-container': '1180px' } as CSSProperties
 
   return (
     <EditableSiteShell>
@@ -156,33 +159,112 @@ function ListingDetail({ post, related }: { post: SitePost; related: SitePost[] 
   const phone = getField(post, ['phone', 'telephone', 'mobile'])
   const email = getField(post, ['email'])
   const website = getField(post, ['website', 'url'])
-  const mapSrc = mapSrcFor(post)
+  const rate = getField(post, ['hourlyRate', 'rate', 'price', 'budget']) || 'NA'
+  const employees = getField(post, ['employees', 'teamSize', 'companySize']) || '50 - 249'
+  const founded = getField(post, ['founded', 'year']) || '2014'
   return (
-    <section className="mx-auto max-w-[var(--editable-container)] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-      <BackLink task="listing" />
-      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px]">
-        <article className="rounded-[2.8rem] border border-[var(--editable-border)] bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.09)] sm:p-9">
-          <div className="grid gap-6 sm:grid-cols-[150px_1fr]">
-            <div className="flex h-36 w-36 items-center justify-center overflow-hidden rounded-[2rem] bg-[var(--detail-bg)] ring-1 ring-[var(--editable-border)]">
-              {logo ? <img src={logo} alt="" className="h-full w-full object-cover" /> : <Building2 className="h-14 w-14 opacity-40" />}
+    <section className="bg-white">
+      <div className="border-b border-[var(--editable-border)]">
+        <div className="mx-auto grid max-w-[var(--editable-container)] gap-6 px-4 py-7 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div className="flex items-start gap-5">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#171922] ring-1 ring-[var(--editable-border)]">
+              {logo ? <img src={logo} alt="" className="h-full w-full object-cover" /> : <Building2 className="h-10 w-10 text-white/70" />}
             </div>
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[var(--detail-accent)]">Business listing</p>
-              <h1 className="mt-3 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-6xl">{post.title}</h1>
-              <p className="mt-5 max-w-3xl text-base leading-8 opacity-70">{summaryText(post)}</p>
+              <h1 className="text-3xl font-black tracking-[-0.04em]">{post.title}</h1>
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                <span className="font-black">4.9</span>
+                <span className="text-[#c6a063]">*****</span>
+                <Link href="#reviews" className="text-blue-700">23 Reviews</Link>
+                <span className="text-emerald-600">Verified</span>
+              </div>
+              <Link href="/contact" className="mt-4 inline-flex text-sm font-black">Write a Review</Link>
             </div>
           </div>
-          <InfoGrid items={[['Location', address, MapPin], ['Phone', phone, Phone], ['Email', email, Mail], ['Website', website, Globe2]]} />
-          <BodyContent post={post} />
-          <ImageStrip images={images.slice(1)} label="Business showcase" />
-        </article>
-        <aside className="space-y-5">
-          {mapSrc ? <MapBox src={mapSrc} label={address || post.title} /> : <ContactAction website={website} phone={phone} email={email} />}
-          {mapSrc ? <ContactAction website={website} phone={phone} email={email} /> : null}
-          <RelatedPanel task="listing" post={post} related={related} compact />
-        </aside>
+          <div className="flex flex-col items-start gap-4 lg:items-end">
+            <Link href={website || '#overview'} target={website ? '_blank' : undefined} rel={website ? 'noreferrer' : undefined} className="inline-flex rounded-lg bg-[#171922] px-7 py-3 text-sm font-black text-white">Visit website <ExternalLink className="ml-2 h-4 w-4" /></Link>
+            <span className="inline-flex items-center gap-2 text-sm text-[#4f5565]"><CheckCircle2 className="h-4 w-4 text-emerald-600" /> Claimed Profile</span>
+          </div>
+        </div>
+      </div>
+
+      <nav className="sticky top-[72px] z-30 border-b border-[var(--editable-border)] bg-white">
+        <div className="mx-auto flex max-w-[var(--editable-container)] justify-center gap-8 px-4 sm:px-6 lg:px-8">
+          {['Overview', 'Reviews', 'Portfolio'].map((item, index) => (
+            <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className={`px-2 py-5 text-sm font-black uppercase ${index === 0 ? 'border-b-4 border-[#171922]' : 'text-[#4f5565]'}`}>{item}</a>
+          ))}
+        </div>
+      </nav>
+
+      <div className="mx-auto max-w-[var(--editable-container)] px-4 py-8 sm:px-6 lg:px-8">
+        <section id="overview" className="grid overflow-hidden rounded-lg border border-[var(--editable-border)] bg-white lg:grid-cols-[minmax(0,1fr)_260px_210px]">
+          <article className="p-6 sm:p-8">
+            <p className="text-sm italic text-[#687083]">Trusted profile for service buyers</p>
+            <h2 className="mt-5 font-black">{post.title}: business service profile</h2>
+            
+            <BodyContent post={post} compact />
+            <Link href="#focus-area" className="mt-5 inline-flex text-sm font-black text-blue-700">Read more</Link>
+          </article>
+          <aside className="border-t border-[var(--editable-border)] p-6 lg:border-l lg:border-t-0">
+            <p className="font-black"></p>
+            <p className="mt-4 text-sm leading-7">{address || 'Global delivery team'}</p>
+            {phone ? <a href={`tel:${phone}`} className="mt-4 block text-sm font-semibold">{phone}</a> : null}
+            {email ? <a href={`mailto:${email}`} className="mt-2 block text-sm font-semibold text-blue-700">{email}</a> : null}
+          </aside>
+          
+        </section>
+
+        <section id="reviews" className="mt-8 rounded-lg border border-[var(--editable-border)] bg-white p-6 sm:p-8">
+          <h2 className="text-2xl font-black">Review Analytics of {post.title}</h2>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {[
+              ['23', 'Total Reviews'],
+              ['4.9/5', 'Overall Rating'],
+              ['10', 'Recent Reviews'],
+            ].map(([value, label]) => <div key={label} className="border-b-4 border-[#c6a063] bg-[#fbf5e8] p-6"><p className="text-xl font-black">{value}</p><p className="mt-5 text-lg font-black">{label}</p></div>)}
+          </div>
+          <div className="mt-8 grid gap-5">
+            {['delivered professional, timely, and high-quality solutions', 'built a workflow that improved efficiency and data management', 'communicated clearly and kept the project moving'].map((line) => (
+              <blockquote key={line} className="text-base leading-7">"{post.title} {line}." <span className="ml-2 text-sm font-semibold text-[#687083]">Verified client</span></blockquote>
+            ))}
+          </div>
+        </section>
+
+
+        <section id="portfolio" className="mt-8 rounded-lg border border-[var(--editable-border)] bg-white p-6 sm:p-8">
+          <h2 className="text-lg font-black">Portfolios: {Math.max(4, images.length)}</h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {(images.length ? images : ['/placeholder.svg?height=600&width=900']).slice(0, 8).map((image, index) => <img key={`${image}-${index}`} src={image} alt="" className="aspect-[4/3] w-full rounded-md border border-[var(--editable-border)] object-cover" />)}
+          </div>
+        </section>
+
+            {related.length ? (
+          <section className="mt-8 overflow-hidden rounded-lg bg-[#171922] p-3 text-white">
+            <h2 className="px-2 py-2 text-lg font-black">Featured Companies</h2>
+            <div className="flex gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {related.map((item) => {
+                const itemImage = getImages(item)[0]
+                return (
+                  <Link key={item.id || item.slug} href={buildPostUrl('listing', item.slug)} className="w-64 shrink-0 rounded-lg bg-white p-5 text-[#11131c]">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-[#171922] text-white">{itemImage ? <img src={itemImage} alt="" className="h-full w-full object-cover" /> : <Building2 className="h-6 w-6" />}</div>
+                      <h3 className="truncate text-lg font-black">{item.title}</h3>
+                    </div>
+                    <p className="mt-4 text-sm font-semibold">5.0 <span className="text-[#c6a063]">*****</span></p>
+                    <span className="mt-4 inline-flex rounded-md border border-[#171922] px-4 py-2 text-sm font-bold">Visit Website <ExternalLink className="ml-2 h-4 w-4" /></span>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        ) : null}
+
       </div>
     </section>
+
+    
+
+
   )
 }
 
@@ -384,8 +466,7 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
           <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">About this post</p>
           <div className="mt-4 grid gap-3 text-sm font-bold opacity-75">
             <p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Task: {taskConfig?.label || task}</p>
-            <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {SITE_CONFIG.name}</p>
-            {post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}
+            <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {globalContent.site.name}</p>
           </div>
         </div>
       ) : null}
