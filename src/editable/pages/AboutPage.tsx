@@ -29,22 +29,14 @@ export default function AboutPage() {
             </aside>
           </div>
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-            <article className="rounded-xl border border-[var(--editable-border)] bg-white p-8">
-              <h2 className="text-3xl font-black tracking-[-0.04em]">Why this business listing experience works</h2>
-            <div className="mt-8 space-y-4 text-sm leading-8 opacity-75">
-              {pagesContent.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-          </article>
-            <aside className="grid gap-4">
-              {pagesContent.about.values.map((value) => (
-                <div key={value.title} className="rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-sm">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                  <h2 className="mt-3 text-xl font-black tracking-[-0.03em]">{value.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-[#4f5565]">{value.description}</p>
-                </div>
-              ))}
-            </aside>
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {pagesContent.about.values.map((value) => (
+              <div key={value.title} className="rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-sm">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                <h2 className="mt-3 text-xl font-black tracking-[-0.03em]">{value.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-[#4f5565]">{value.description}</p>
+              </div>
+            ))}
           </div>
 
           <div className="mt-8 rounded-xl bg-[#e9e9eb] p-8 sm:p-10">
