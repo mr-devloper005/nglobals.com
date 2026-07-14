@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, Search, UserPlus, LogIn, X, PlusCircle, ShieldCheck, ChevronDown } from 'lucide-react'
+import { Menu, Search, UserPlus, LogIn, X, PlusCircle, ChevronDown } from 'lucide-react'
 import { globalContent } from '@/editable/content/global.content'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
