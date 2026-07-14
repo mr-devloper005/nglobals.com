@@ -37,7 +37,7 @@ const saveDraft = (draft: DraftPost) => {
 export default function CreatePage() {
   const { session } = useEditableLocalAuthSession()
   const enabledTasks = useMemo(() => SITE_CONFIG.tasks.filter((item) => item.enabled && item.key === 'listing'), [])
-  const [task, setTask] = useState<TaskKey>('listing' as TaskKey)
+  const task: TaskKey = 'listing' as TaskKey
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
   const [summary, setSummary] = useState('')

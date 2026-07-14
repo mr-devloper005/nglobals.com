@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
-import { ArrowRight, Bookmark, BriefcaseBusiness, Building2, Camera, Download, FileText, Filter, Image as ImageIcon, MapPin, Megaphone, Search, UserRound } from 'lucide-react'
+import { ArrowRight, Bookmark, BriefcaseBusiness, Building2, Camera, Download, FileText, Image as ImageIcon, MapPin, Megaphone, Search, UserRound } from 'lucide-react'
 import { buildTaskMetadata } from '@/lib/seo'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import { fetchPaginatedTaskPosts, buildPostUrl } from '@/lib/task-data'
@@ -179,9 +179,6 @@ function ListingArchiveCard({ post, href }: { post: SitePost; href: string }) {
   const logo = getImages(post)[0]
   const location = getField(post, ['location', 'address', 'city'])
   const website = getField(post, ['website', 'url'])
-  const rate = getField(post, ['hourlyRate', 'rate', 'price', 'budget']) || '$50 - $99/hr'
-  const employees = getField(post, ['employees', 'teamSize', 'companySize']) || '10 - 49'
-  const founded = getField(post, ['founded', 'year']) || '2014'
   const summary = getSummary(post) || 'A verified business service provider with profile details, service expertise, and contact information ready for comparison.'
   return (
     <article className="rounded-lg border border-[var(--editable-border)] bg-white shadow-sm">
