@@ -46,7 +46,7 @@ const matches = (post: SitePost, query: string, category: string, task: string) 
     .some((value) => compactText(value).includes(query))
 }
 
-function SearchResultCard({ post, index }: { post: SitePost; index: number }) {
+function SearchResultCard({ post }: { post: SitePost }) {
   const task = getPostTaskKey(post) as TaskKey | null
   const href = task ? buildPostUrl(task, post.slug) : `/listing/${post.slug}`
   const image = getImage(post)
@@ -123,7 +123,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: Prom
 
           {results.length ? (
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {results.map((post, index) => <SearchResultCard key={post.id || post.slug} post={post} index={index} />)}
+              {results.map((post) => <SearchResultCard key={post.id || post.slug} post={post} />)}
             </div>
           ) : (
             <div className="mt-8 rounded-[2rem] border border-dashed border-[var(--editable-border)] bg-white/70 p-10 text-center">

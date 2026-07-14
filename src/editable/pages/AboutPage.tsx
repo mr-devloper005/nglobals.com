@@ -5,13 +5,6 @@ import { globalContent } from '@/editable/content/global.content'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
 
 export default function AboutPage() {
-  const stats = [
-    ['80K+', 'verified buyer signals'],
-    ['30K+', 'software and service profiles'],
-    ['120+', 'service categories'],
-    ['40+', 'popular markets covered'],
-  ]
-
   return (
     <EditableSiteShell>
       <main className="bg-[#f6f3ee] px-4 py-14 text-[#11131c] sm:px-6 lg:px-8">
@@ -21,14 +14,6 @@ export default function AboutPage() {
               <p className="text-xs font-black uppercase tracking-[0.24em] text-[#c6a063]">{pagesContent.about.badge}</p>
               <h1 className="mt-5 text-5xl font-black leading-tight tracking-[-0.05em]">About {globalContent.site.name}</h1>
               <p className="mt-5 max-w-3xl text-base leading-8 text-[#4f5565]">{pagesContent.about.description}</p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {stats.map(([value, label]) => (
-                  <div key={label} className="rounded-lg bg-[#fbf5e8] p-5">
-                    <p className="text-3xl font-black">{value}</p>
-                    <p className="mt-2 text-sm font-semibold text-[#4f5565]">{label}</p>
-                  </div>
-                ))}
-              </div>
             </article>
             <aside className="rounded-xl bg-[#171922] p-8 text-white lg:p-10">
               <ShieldCheck className="h-10 w-10 text-[#c6a063]" />
