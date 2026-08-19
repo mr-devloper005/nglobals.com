@@ -20,8 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-const stripHtml = (value: string) => value.replace(/<[^>]*>/g, ' ')
-const compactText = (value: unknown) => typeof value === 'string' ? stripHtml(value).replace(/\s+/g, ' ').trim().toLowerCase() : ''
+const stripTags = (value: string) => value
+  .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+  .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+const compactText = (value: unknown) => typeof value === 'string' ? stripTags(value).toLowerCase() : ''
 const getContent = (post: SitePost) => post.content && typeof post.content === 'object' ? post.content as Record<string, unknown> : {}
 const getImage = (post: SitePost) => {
   const content = getContent(post)
@@ -30,7 +33,7 @@ const getImage = (post: SitePost) => {
   return media || compactRaw(content.featuredImage) || compactRaw(content.image) || compactRaw(content.thumbnail) || images || ''
 }
 const compactRaw = (value: unknown) => typeof value === 'string' ? value.trim() : ''
-const summaryOf = (post: SitePost) => post.summary || compactRaw(getContent(post).description) || compactRaw(getContent(post).excerpt) || ''
+const summaryOf = (post: SitePost) => stripTags(post.summary || compactRaw(getContent(post).description) || compactRaw(getContent(post).excerpt) || '')
 
 const matches = (post: SitePost, query: string, category: string, task: string) => {
   const content = getContent(post)
@@ -55,7 +58,7 @@ function SearchResultCard({ post }: { post: SitePost }) {
   return (
     <Link href={href} className="group block overflow-hidden rounded-xl border border-[var(--editable-border)] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
       {image ? (
-        <div className="relative aspect-[16/9] max-h-48 overflow-hidden bg-[#eef0f3]">
+        <div className="relative aspect-[16/9] max-h-48 overflow-hidden bg-[#ece7de]">
           <img src={image} alt="" className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-black">{taskLabel}</span>
@@ -87,7 +90,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: Prom
     <EditableSiteShell>
       <main className="min-h-screen bg-[var(--editable-page-bg,#fff7ee)] text-[var(--editable-page-text,#2f1d16)]">
         <section className="mx-auto max-w-[1040px] px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-          <div className="grid gap-7 rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[0.82fr_1.18fr] lg:p-8">
+          <div className="grid gap-7 rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.07)] md:grid-cols-[0.82fr_1.18fr] lg:p-8">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">{pagesContent.search.hero.badge}</p>
               <h1 className="mt-4 max-w-md text-4xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">{pagesContent.search.hero.title}</h1>

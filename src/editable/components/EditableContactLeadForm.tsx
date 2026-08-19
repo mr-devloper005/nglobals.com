@@ -45,11 +45,11 @@ export function EditableContactLeadForm() {
       </div>
       <label className="mt-4 grid gap-2 text-sm font-black text-[#11131c]">
         Message
-        <textarea name="message" required rows={6} placeholder="Tell us what you need help with..." className="rounded-2xl border border-[var(--editable-border)] bg-white px-4 py-3 text-base font-medium text-[#11131c] outline-none transition placeholder:text-[#6b7280] focus:border-[#c6a063]" />
+        <textarea name="message" required rows={6} placeholder="Tell us what you need help with..." className="rounded-2xl border border-[var(--editable-border)] bg-white px-4 py-3 text-base font-medium text-[#11131c] outline-none transition placeholder:text-[#687083] focus:border-[#c6a063]" />
       </label>
       <input name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       {message ? (
-        <div className={`mt-5 flex items-start gap-3 rounded-2xl px-4 py-3 text-sm font-bold ${status === 'success' ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mt-5 flex items-start gap-3 rounded-2xl px-4 py-3 text-sm font-bold ${status === 'success' ? 'bg-[#f6ecd9] text-[#11131c]' : 'bg-[#f6f3ee] text-[#11131c]'}`}>
           {status === 'success' ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> : null}
           <span>{message}</span>
         </div>
@@ -66,7 +66,7 @@ function Field({ name, label, type = 'text', placeholder, required = false }: { 
   return (
     <label className="grid gap-2 text-sm font-black text-[#11131c]">
       {label}
-      <input name={name} type={type} required={required} placeholder={placeholder} className="h-12 rounded-2xl border border-[var(--editable-border)] bg-white px-4 text-base font-medium text-[#11131c] outline-none transition placeholder:text-[#6b7280] focus:border-[#c6a063]" />
+      <input name={name} type={type} required={required} placeholder={placeholder} className="h-12 rounded-2xl border border-[var(--editable-border)] bg-white px-4 text-base font-medium text-[#11131c] outline-none transition placeholder:text-[#687083] focus:border-[#c6a063]" />
     </label>
   )
 }

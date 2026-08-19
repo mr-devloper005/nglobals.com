@@ -20,7 +20,7 @@ export default function SignupPage() {
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c6a063] text-white"><ShieldCheck className="h-5 w-5" /></span>
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">{globalContent.site.name}</p>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#687083]">{globalContent.site.name}</p>
                 <h1 className="text-3xl font-black tracking-[-0.05em]">{pagesContent.auth.signup.formTitle}</h1>
               </div>
             </div>
