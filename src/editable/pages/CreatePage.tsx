@@ -22,7 +22,7 @@ type DraftPost = {
 
 const STORE_KEY = 'slot4:created-posts'
 
-const fieldClass = 'rounded-xl border border-[var(--editable-border)] bg-white px-4 py-3 text-sm font-bold text-[#11131c] outline-none transition placeholder:text-[#6b7280] focus:border-[#c6a063]'
+const fieldClass = 'rounded-xl border border-[var(--editable-border)] bg-white px-4 py-3 text-sm font-bold text-[#11131c] outline-none transition placeholder:text-[#687083] focus:border-[#c6a063]'
 
 const saveDraft = (draft: DraftPost) => {
   try {
@@ -75,7 +75,7 @@ export default function CreatePage() {
     return (
       <EditableSiteShell>
         <main className="min-h-screen bg-[#f6f3ee] px-4 py-16 text-[#11131c] sm:px-6 lg:px-8">
-          <section className="mx-auto grid max-w-5xl gap-8 rounded-xl border border-[var(--editable-border)] bg-white p-7 shadow-[0_30px_90px_rgba(15,23,42,0.08)] md:grid-cols-[0.9fr_1.1fr] md:p-10">
+          <section className="mx-auto grid max-w-5xl gap-8 rounded-xl border border-[var(--editable-border)] bg-white p-7 shadow-[0_30px_90px_rgba(0,0,0,0.08)] md:grid-cols-[0.9fr_1.1fr] md:p-10">
             <div className="flex h-full min-h-72 items-center justify-center rounded-xl bg-[#171922] text-white">
               <Lock className="h-20 w-20 opacity-80" />
             </div>
@@ -98,7 +98,7 @@ export default function CreatePage() {
     <EditableSiteShell>
       <main className="min-h-screen bg-[#f6f3ee] text-[#11131c]">
         <section className="mx-auto max-w-[var(--editable-container)] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-          <div className="grid gap-8 rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.08)] lg:grid-cols-[0.85fr_1.15fr] lg:p-10">
+          <div className="grid gap-8 rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_30px_90px_rgba(0,0,0,0.08)] lg:grid-cols-[0.85fr_1.15fr] lg:p-10">
             <aside>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#c6a063]">{pagesContent.create.hero.badge}</p>
               <h1 className="mt-5 text-5xl font-black leading-[1] tracking-[-0.06em] sm:text-6xl">{pagesContent.create.hero.title}</h1>
@@ -109,7 +109,7 @@ export default function CreatePage() {
                   [Globe2, 'Website and market fit', 'Share your URL, service category, location, and business focus.'],
                   [MapPin, 'Local and global discovery', 'Help customers find you by geography and service need.'],
                 ].map(([Icon, title, body]) => (
-                  <div key={String(title)} className="rounded-xl border border-[var(--editable-border)] bg-[#fbf5e8] p-4">
+                  <div key={String(title)} className="rounded-xl border border-[var(--editable-border)] bg-[#f6ecd9] p-4">
                     <Icon className="h-5 w-5 text-[#c6a063]" />
                     <p className="mt-3 text-sm font-black">{String(title)}</p>
                     <p className="mt-1 text-xs font-semibold leading-6 text-[#4f5565]">{String(body)}</p>
@@ -139,7 +139,7 @@ export default function CreatePage() {
               </div>
 
               {created ? (
-                <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
+                <div className="mt-5 rounded-2xl border border-[#c6a063]/20 bg-[#f6ecd9] p-4 text-[#11131c]">
                   <p className="flex items-center gap-2 text-sm font-black"><CheckCircle2 className="h-5 w-5" /> {pagesContent.create.successTitle}</p>
                   <p className="mt-1 text-sm font-semibold opacity-80">{created.title}</p>
                 </div>

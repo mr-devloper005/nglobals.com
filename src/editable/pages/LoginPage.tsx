@@ -22,15 +22,15 @@ export default function LoginPage() {
             <p className="mt-6 max-w-lg text-sm leading-8 text-[#4f5565]">{pagesContent.auth.login.description}</p>
             <div className="mt-8 grid max-w-xl gap-3">
               {['Manage listing drafts and company details.', 'Return to saved business profile submissions.', 'Access the get-listed workspace after sign in.'].map((item) => (
-                <p key={item} className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 text-sm font-bold text-[#293142]"><CheckCircle2 className="h-5 w-5 text-emerald-600" /> {item}</p>
+                <p key={item} className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 text-sm font-bold text-[#11131c]"><CheckCircle2 className="h-5 w-5 text-[#c6a063]" /> {item}</p>
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_24px_70px_rgba(16,36,31,0.12)] sm:p-8">
+          <div className="rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-[0_24px_70px_rgba(0,0,0,0.12)] sm:p-8">
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c6a063] text-white"><ShieldCheck className="h-5 w-5" /></span>
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">{globalContent.site.name}</p>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#687083]">{globalContent.site.name}</p>
                 <h2 className="text-2xl font-black tracking-[-0.04em]">{pagesContent.auth.login.formTitle}</h2>
               </div>
             </div>

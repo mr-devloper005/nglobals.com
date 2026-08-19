@@ -73,7 +73,7 @@ function BusinessPostingCard({ post, index, compact = false }: { post: SitePost;
   const reviews = field(post, ['reviews', 'reviewCount'], '')
   const summary = excerpt(post)
   return (
-    <Link href={listingHref(post)} className={`group block rounded-xl border border-[#d9d9df] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${compact ? 'p-4' : 'p-5'}`}>
+    <Link href={listingHref(post)} className={`group block rounded-xl border border-black/[0.06] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${compact ? 'p-4' : 'p-5'}`}>
       <div className="flex items-start gap-4">
         <LogoMark post={post} index={index} />
         <div className="min-w-0 flex-1">
@@ -81,12 +81,12 @@ function BusinessPostingCard({ post, index, compact = false }: { post: SitePost;
           <h3 className="mt-1 truncate text-xl font-black tracking-[-0.03em] text-[#11131c]">{post.title}</h3>
           {rating || reviews ? <div className="mt-2 flex flex-wrap items-center gap-2">
             {rating ? <Stars score={rating} /> : null}
-            {reviews ? <span className="text-xs font-semibold text-blue-700">{reviews} Reviews</span> : null}
+            {reviews ? <span className="text-xs font-semibold text-[#c6a063]">{reviews} Reviews</span> : null}
           </div> : null}
         </div>
       </div>
       {!compact && summary ? <p className="mt-4 line-clamp-2 text-sm leading-6 text-[#4f5565]">{summary}</p> : null}
-      {location || team || rate ? <div className="mt-4 grid gap-2 border-t border-[#ececf0] pt-4 text-xs font-semibold text-[#4f5565] sm:grid-cols-2">
+      {location || team || rate ? <div className="mt-4 grid gap-2 border-t border-black/[0.06] pt-4 text-xs font-semibold text-[#4f5565] sm:grid-cols-2">
         {location ? <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-[#c6a063]" /> {location}</span> : null}
         {team ? <span className="inline-flex items-center gap-2"><UsersRound className="h-4 w-4 text-[#c6a063]" /> {team}</span> : null}
         {!compact && rate ? <span className="sm:col-span-2 font-black text-[#11131c]">{rate}</span> : null}
@@ -118,11 +118,11 @@ export function EditableHomeHero(_: HomeSectionProps) {
         <form action="/search" className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-[1fr_0.72fr_auto]">
           <label className="flex h-16 items-center gap-3 rounded-lg bg-white px-5 text-[#11131c]">
             <Search className="h-5 w-5 text-[#c6a063]" />
-            <input name="q" placeholder={pagesContent.home.hero.searchPlaceholder} className="min-w-0 flex-1 bg-transparent text-base font-semibold outline-none placeholder:text-[#6b7280]" />
+            <input name="q" placeholder={pagesContent.home.hero.searchPlaceholder} className="min-w-0 flex-1 bg-transparent text-base font-semibold outline-none placeholder:text-[#687083]" />
           </label>
           <label className="flex h-16 items-center gap-3 rounded-lg bg-white px-5 text-[#11131c]">
             <Globe2 className="h-5 w-5 text-[#c6a063]" />
-            <input name="category" placeholder={pagesContent.home.hero.focusLabel} className="min-w-0 flex-1 bg-transparent text-base font-semibold outline-none placeholder:text-[#6b7280]" />
+            <input name="category" placeholder={pagesContent.home.hero.focusLabel} className="min-w-0 flex-1 bg-transparent text-base font-semibold outline-none placeholder:text-[#687083]" />
           </label>
           <button className="inline-flex h-16 items-center justify-center rounded-lg bg-[#c6a063] px-7 text-[#11131c] transition hover:-translate-y-0.5" aria-label="Search">
             <ArrowRight className="h-6 w-6" />
@@ -237,9 +237,9 @@ export function EditableHomeCta() {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-[var(--editable-container)] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-6 rounded-xl bg-[#e9e9eb] p-8 sm:p-10 lg:grid-cols-[1fr_auto]">
+        <div className="grid items-center gap-6 rounded-xl bg-[#f2f2f4] p-8 sm:p-10 lg:grid-cols-[1fr_auto]">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#6b7280]">{pagesContent.home.cta.badge}</p>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#687083]">{pagesContent.home.cta.badge}</p>
             <h2 className="mt-3 text-4xl font-black tracking-[-0.04em] text-[#11131c]">{pagesContent.home.cta.title}</h2>
             <p className="mt-4 text-base font-semibold text-[#4f5565]">{pagesContent.home.cta.description}</p>
           </div>
