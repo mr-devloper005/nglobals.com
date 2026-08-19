@@ -32,14 +32,14 @@ export default function AboutPage() {
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {pagesContent.about.values.map((value) => (
               <div key={value.title} className="rounded-xl border border-[var(--editable-border)] bg-white p-6 shadow-sm">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                <CheckCircle2 className="h-5 w-5 text-[#c6a063]" />
                 <h2 className="mt-3 text-xl font-black tracking-[-0.03em]">{value.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-[#4f5565]">{value.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 rounded-xl bg-[#e9e9eb] p-8 sm:p-10">
+          <div className="mt-8 rounded-xl bg-[#f2f2f4] p-8 sm:p-10">
             <div className="grid items-center gap-5 lg:grid-cols-[1fr_auto]">
               <div>
                 <h2 className="text-3xl font-black tracking-[-0.04em]">Ready to compare trusted companies?</h2>

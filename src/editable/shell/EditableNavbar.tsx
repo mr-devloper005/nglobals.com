@@ -11,7 +11,7 @@ export function EditableNavbar() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const { session, logout } = useEditableLocalAuthSession()
-  const navVars = { '--editable-nav-bg': '#ffffff', '--editable-nav-text': '#11131c', '--editable-nav-active': '#171922', '--editable-nav-active-text': '#ffffff', '--editable-cta-bg': '#c6a063', '--editable-cta-text': '#11131c', '--editable-search-bg': '#ffffff', '--editable-border': '#d9d9df' } as CSSProperties
+  const navVars = { '--editable-nav-bg': '#ffffff', '--editable-nav-text': '#11131c', '--editable-nav-active': '#171922', '--editable-nav-active-text': '#ffffff', '--editable-cta-bg': '#c6a063', '--editable-cta-text': '#11131c', '--editable-search-bg': '#ffffff', '--editable-border': 'rgba(0,0,0,0.06)' } as CSSProperties
 
   return (
     <header style={navVars} className="sticky top-0 z-50 border-b border-[var(--editable-border)] bg-[var(--editable-nav-bg)] text-[var(--editable-nav-text)]">

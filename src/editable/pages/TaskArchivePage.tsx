@@ -36,7 +36,11 @@ const getImages = (post: SitePost) => {
 const placeholder = '/placeholder.svg?height=900&width=1200'
 const getImage = (post: SitePost) => getImages(post)[0] || placeholder
 const getCategory = (post: SitePost, fallback: string) => asText(getContent(post).category) || post.tags?.[0] || fallback
-const getSummary = (post: SitePost) => post.summary || asText(getContent(post).description) || asText(getContent(post).excerpt) || asText(getContent(post).body)
+const stripTags = (value: string) => value
+  .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+  .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+const getSummary = (post: SitePost) => stripTags(post.summary || asText(getContent(post).description) || asText(getContent(post).excerpt) || asText(getContent(post).body))
 const getField = (post: SitePost, keys: string[]) => {
   const content = getContent(post)
   for (const key of keys) {
@@ -99,10 +103,10 @@ export function TaskArchiveView({ task, posts, pagination, category, basePath }:
           <div className="border-b border-[var(--editable-border)] pb-7">
             <div className="inline-flex items-center gap-2 text-sm font-black"><Link href="/">Home</Link><span className="text-[var(--archive-accent)]">/</span><span>{label}</span></div>
             <h1 className="mt-7 max-w-4xl text-4xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">{voice?.headline || `Browse ${label}`}</h1>
-            <p className="mt-5 max-w-5xl text-base leading-8 text-[#293142]">{voice?.description || SITE_CONFIG.description}</p>
+            <p className="mt-5 max-w-5xl text-base leading-8 text-[#4f5565]">{voice?.description || SITE_CONFIG.description}</p>
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm">
-              <p className="font-semibold"><span className="font-black">{pagination.total || posts.length}</span> Companies <span className="mx-2 text-[#9ca3af]">|</span> Rankings refreshed regularly</p>
-              <Link href="/contact" className="inline-flex items-center gap-2 font-black text-blue-700">Leaders Matrix <ArrowRight className="h-4 w-4" /></Link>
+              <p className="font-semibold"><span className="font-black">{pagination.total || posts.length}</span> Companies <span className="mx-2 text-[#687083]">|</span> Rankings refreshed regularly</p>
+              <Link href="/contact" className="inline-flex items-center gap-2 font-black text-[#c6a063]">Leaders Matrix <ArrowRight className="h-4 w-4" /></Link>
             </div>
           </div>
 
@@ -189,29 +193,29 @@ function ListingArchiveCard({ post, href }: { post: SitePost; href: string }) {
               {logo ? <img src={logo} alt="" className="h-full w-full object-cover" /> : <BriefcaseBusiness className="h-8 w-8 text-white/70" />}
             </div>
             <div className="min-w-0">
-              <Link href={href} className="text-2xl font-black leading-tight tracking-[-0.03em] text-blue-700 hover:underline">{post.title}</Link>
+              <Link href={href} className="text-2xl font-black leading-tight tracking-[-0.03em] text-[#c6a063] hover:underline">{post.title}</Link>
               <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
                 <span className="font-black">5.0</span>
                 <span className="text-[#c6a063]">*****</span>
-                <span className="text-blue-700">{18 + (post.title.length % 90)} Reviews</span>
+                <span className="text-[#c6a063]">{18 + (post.title.length % 90)} Reviews</span>
               </div>
             </div>
           </div>
-          <p className="mt-5 line-clamp-4 max-w-2xl text-base leading-7 text-[#293142]">{summary}</p>
+          <p className="mt-5 line-clamp-4 max-w-2xl text-base leading-7 text-[#4f5565]">{summary}</p>
           
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
           <Link href={website || href} target={website ? '_blank' : undefined} rel={website ? 'noreferrer' : undefined} className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#171922] px-5 text-sm font-black text-white">
             Visit Website <ArrowRight className="h-4 w-4 -rotate-45" />
           </Link>
-          <div className="grid gap-3 border-l-0 border-[#d9d9df] text-sm font-semibold text-[#11131c] lg:border-l lg:pl-6">
+          <div className="grid gap-3 border-l-0 border-black/[0.06] text-sm font-semibold text-[#11131c] lg:border-l lg:pl-6">
            
             <span className="inline-flex items-center gap-3"><MapPin className="h-5 w-5 text-[#c6a063]" />{location || 'Global'}</span>
           </div>
         </div>
       </div>
       <div className="border-t border-[var(--editable-border)] px-5 py-4">
-        <p className="text-sm font-semibold text-[#293142]"><span className="font-black">Why {post.title}?</span> <span className="ml-3 text-emerald-600">OK</span> Verified service profile <span className="ml-6 text-emerald-600">OK</span> Comparison-ready details <span className="ml-6 text-emerald-600">OK</span> Direct inquiry paths</p>
+        <p className="text-sm font-semibold text-[#4f5565]"><span className="font-black">Why {post.title}?</span> <span className="ml-3 text-[#c6a063]">OK</span> Verified service profile <span className="ml-6 text-[#c6a063]">OK</span> Comparison-ready details <span className="ml-6 text-[#c6a063]">OK</span> Direct inquiry paths</p>
       </div>
     </article>
   )
